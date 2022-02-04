@@ -1,0 +1,22 @@
+{
+  "name": "2122_m02uf4",
+  "version": "1.0.0",
+  "description": "Repositorio base de datos UF4 2021/2022",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miquel772/2122_M02UF4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miquel772/2122_M02UF4/issues"
+  },
+  "homepage": "https://github.com/miquel772/2122_M02UF4#readme",
+  "dependencies": {
+    "mongodb": "^4.3.1"
+  }
+}
