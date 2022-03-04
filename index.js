@@ -3,6 +3,8 @@
 
 let http = require("http");
 
+let fs = require("fs");
+
 let mongo_client = require("mongodb").MongoClient;
 
 let url = "mongodb://localhost/";
@@ -30,7 +32,10 @@ http.createServer(function(req, res){
 	res.writeHead(200);
 	
 	if (req.url == "/"){
-		res.end();
+		fs.readFile("index.html", function (err, data){
+			res.writeHead(200, {"Content-Type": "text/html"});
+			res.end(data);
+		});
 
 		return;
 	}
