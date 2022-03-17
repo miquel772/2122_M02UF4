@@ -18,5 +18,6 @@
   "homepage": "https://github.com/miquel772/2122_M02UF4#readme",
   "dependencies": {
     "mongodb": "^4.4.0"
-  }
+  },
+  "devDependencies": {}
 }

@@ -8,34 +8,46 @@
 
 <main>
 <section id="characters">
-	<ul id="characters-list">
-
-	</ul>
+	<ul id="characters-list"></ul>
+	<ul id="items-list"></ul>
 </section>
 </main>
 
 <script>
-
-function write_character_list (data)
+function write_characters_list (data)
 {
 	let list = "";
 	for (let i = 0; i < data.length; i++){
 		list += "<li>"+data[i].name+"</li>";
 	}
-
 	document.getElementById("characters-list").innerHTML = list;
 }
 
+function write_items_list (data)
+{
+	let list = "";
+	for (let i = 0; i <data.length; i++){
+		list += "<li>"+data[i].item+"</li>";
+	}
+	document.getElementById("items-list").innerHTML = list;
+}
+
+
 let characters_interval = setInterval(function(){
 	fetch("/characters")
-		.then((res) => res.json())
-		.then((data) => write_character_list(data));
+		.then(response => response.json())
+		.then(data => write_characters_list(data));
 }, 2000);
 
+let items_interval = setInterval(function(){
+	fetch("/items")
+		.then(response => response.json())
+		.then(data => write_items_list(data));
+},2000);
 
+//clearInterval(characters_interval);
 
 </script>
 
 </body>
 </html>
-
