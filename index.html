@@ -8,7 +8,9 @@
 
 <main>
 <section id="characters">
+	<h2>Characters</h2>
 	<ul id="characters-list"></ul>
+	<h2>Items</h2>
 	<ul id="items-list"></ul>
 </section>
 </main>
@@ -18,7 +20,7 @@ function write_characters_list (data)
 {
 	let list = "";
 	for (let i = 0; i < data.length; i++){
-		list += "<li>"+data[i].name+"</li>";
+		list += '<li><a href="/characters/'+data[i]._id+'">'+data[i].name+'</a></li>';
 	}
 	document.getElementById("characters-list").innerHTML = list;
 }
