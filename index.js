@@ -4,18 +4,19 @@ let http = require("http");
 let fs = require("fs");
 
 let mongo_client = require("mongodb").MongoClient;
+let Object = require("mongodb").ObjectID;
 
 let url = "mongodb://localhost/";
 
 let db;
 
-console.log("Iniciando script mongo-http");
+console.log("Iniciando script de mongo-http!");
 
-mongo_client.connect(url, function(error, conn){
-	console.log("Dentro de MongoDB");
+mongo_client.connect(url, function(err, conn){
+	console.log("Dentro de MongoDB!");
 
-	if (error){
-		console.log("ERROR!!!");
+	if (err){
+		console.log("ERROR!");
 		return;
 	}
 
@@ -26,6 +27,8 @@ mongo_client.connect(url, function(error, conn){
 
 function send_data_list (db, req, res)
 {
+	let col = "";
+
 	if (req.url == "/characters")
 		col = "characters";
 	else if (req.url == "/items")
@@ -34,8 +37,8 @@ function send_data_list (db, req, res)
 		res.end();
 		return;
 	}
-
-	let col_data = db.collection(col).find();
+	
+	let col_data = db.collection(col).find({}, { projection: { name:1 } });
 
 	col_data.toArray(function(err, data){
 		let string = JSON.stringify(data);
@@ -56,25 +59,36 @@ http.createServer(function(req, res){
 		return;
 	}
 
-	let col = "";
-
 	let url = req.url.split("/");
-	
-	if (url.length == 2)
-	{
+
+	if (url.length == 2){
 		send_data_list(db, req, res);
+		return;
 	}
-	else{
-		if (url[2].lenght != 24){
-			res.end();
-			return;
-		}
-		if (url[1]=="characters"){
-			
-		}
-		else if (url[1]=="items"){
-			
-		}
+
+	if (url[2].length != 24){
+		res.end();
+		return;
 	}
+
+	if (url[1] == "characters"){
+		let obj_id = new ObjectId(url[2]);
+
+		let col_data = db.collection("characters").find({"_id":obj_id});
+
+		col_data.toArray(function(err, data){
+			let string = JSON.stringify(data);
+
+			res.end(string);
+		});
+	}
+	else if(url[1] == "items") {
+		
+	}
+
 
 }).listen(1095);
+
+
+
+
