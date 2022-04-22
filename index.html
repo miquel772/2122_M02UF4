@@ -32,15 +32,16 @@ function write_characters_list (data)
 {
 	let list = "";
 	for (let i = 0; i < data.length; i++){
-		list += "<li>"+data[i].name+"</li>";
+		list += '<li><a href="/characters/'+data[i]._id+'">'+data[i].name+'</a>';
+		list+= '<a href="/remove/'+data[i].id_character+'"> X</a></li>';
 	}
 	document.getElementById("characters-list").innerHTML = list;
 }
 
 function load_data_items ()
 {
-	fetch("/items")
-		.then(response => response.json())
+fetch("/items")
+.then(response => response.json())
 		.then(data => write_items_list(data));
 }
 
